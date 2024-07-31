@@ -2,7 +2,7 @@
   "name": "flex-function-fw",
   "version": "1.0.0",
   "description": "flex function framework",
-  "main": "index.js",
+  "main": "flex-fw-framework-index.js",
   "directories": {
     "lib": "lib",
     "test": "test"
