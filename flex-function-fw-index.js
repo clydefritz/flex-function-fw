@@ -1,4 +1,4 @@
-const { flexInitializeEnvVars, flexGetEnvVars, flexAddEnvVariable, flexGetEnvVariable } = require('../lib/flex-fw-env-utils');
+const { flexInitializeEnvVars, flexGetEnvVars, flexAddEnvVariable, flexGetEnvVariable } = require('./lib/flex-fw-env-utils');
 
 
 
