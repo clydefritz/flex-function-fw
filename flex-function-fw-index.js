@@ -1,12 +1,12 @@
-const { flexInitializeEnvVars, flexGetEnvVars, flexAddEnvVariable, flexGetEnvVariable } = require('./lib/flex-fw-env-utils');
+const { flexEnvInitializeVars, flexEnvGetVars, flexEnvAddVariable, flexEnvGetVariable } = require('./lib/flex-fw-env-utils');
 
 
 
 
 // Export all functions
 module.exports = {
-    flexInitializeEnvVars,
-    flexGetEnvVars,
-    flexAddEnvVariable,
-    flexGetEnvVariable
+    flexEnvInitializeVars,
+    flexEnvGetVars,
+    flexEnvAddVariable,
+    flexEnvGetVariable
 }
