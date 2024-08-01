@@ -1,0 +1,21 @@
+{
+    "flexFunctionName": "flexFunctionConfigExample",
+    "flexFunctionDcPort": 8080,
+    "flexFunctionRoutes": [
+        {
+            "method": "get",
+            "path": "/",
+            "handler": "home"
+        },
+        {
+            "method": "get",
+            "path": "/about",
+            "handler": "about"
+        },
+        {
+            "method": "post",
+            "path": "/contact",
+            "handler": "contact"
+        }
+    ]
+}
