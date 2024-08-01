@@ -1,18 +1,19 @@
 const { flexEnvInitializeVars, flexEnvGetVars, flexEnvAddVariable, flexEnvGetVariable } = require('../lib/flex-fw-env-utils');
 
 async function main() {
-    flexEnvInitializeVars('MY_ENV_VAR');
+    const myName = await flexEnvInitializeVars();
+    console.log(`I am ${myName}`);
 
-    let envVars = flexEnvGetVars('MY_ENV_VAR');
+    let envVars = await flexEnvGetVars(myName);
     console.log(envVars);
 
-    flexEnvAddVariable('MY_ENV_VAR', 'newTestKey', 'newTestValue');
+    await flexEnvAddVariable(myName, 'newTestKey', 'newTestValue');
 
-    const value = flexEnvGetVariable('MY_ENV_VAR', 'newTestKey');
+    const value = await flexEnvGetVariable(myName, 'newTestKey');
 
     console.log(value);
 
-    envVars = flexEnvGetVars('MY_ENV_VAR');
+    envVars = flexEnvGetVars(myName);
     console.log(envVars);
 }
 
