@@ -15,6 +15,8 @@ async function main() {
 
     envVars = flexEnvGetVars(myName);
     console.log(envVars);
+
+
 }
 
 main();
