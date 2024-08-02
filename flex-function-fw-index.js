@@ -1,5 +1,5 @@
 const { flexEnvInitializeVars, flexEnvGetVars, flexEnvAddVariable, flexEnvGetVariable } = require('./lib/flex-fw-env-utils');
-
+const { flexFunctionStart } = require('./lib/flex-fw-func-main');
 
 
 
@@ -8,5 +8,6 @@ module.exports = {
     flexEnvInitializeVars,
     flexEnvGetVars,
     flexEnvAddVariable,
-    flexEnvGetVariable
+    flexEnvGetVariable,
+    flexFunctionStart
 }

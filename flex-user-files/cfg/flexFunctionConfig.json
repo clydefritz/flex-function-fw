@@ -13,7 +13,7 @@
             "handler": "about"
         },
         {
-            "method": "post",
+            "method": "all",
             "path": "/contact",
             "handler": "contact"
         }
