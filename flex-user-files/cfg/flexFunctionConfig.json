@@ -1,6 +1,6 @@
 {
     "flexFunctionName": "flexFunctionConfigExample",
-    "flexFunctionDcPort": 8080,
+    "flexFunctionDcPort": 8082,
     "flexFunctionRoutes": [
         {
             "method": "get",
