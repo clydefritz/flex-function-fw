@@ -1,0 +1,19 @@
+{
+    "flexFunctionAdminRoutes": [
+        {
+            "method": "all",
+            "path": "/",
+            "handler": "adminhome"
+        },
+        {
+            "method": "all",
+            "path": "/sigterm",
+            "handler": "sigterm"
+        },
+        {
+            "method": "all",
+            "path": "/sigint",
+            "handler": "sigint"
+        }
+    ]
+}
