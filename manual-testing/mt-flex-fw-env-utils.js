@@ -7,9 +7,9 @@ async function main() {
     let envVars = await flexEnvGetVars(myName);
     console.log(envVars);
 
-    await flexEnvAddVariable(myName, 'newTestKey', 'newTestValue');
+    await flexEnvAddVariable('newTestKey', 'newTestValue');
 
-    const value = await flexEnvGetVariable(myName, 'newTestKey');
+    const value = await flexEnvGetVariable('newTestKey');
 
     console.log(value);
 

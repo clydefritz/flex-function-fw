@@ -16,9 +16,9 @@ async function main(){
 
 // Starting the express app as dc_app (data center app) if not in GCP
 async function startDcListener() {
-    if (fw_env.flexEnvGetVariable(process.env.thisFunctionName, 'flexFunctionStartUp.envIsDcFunction')) {
+    if (fw_env.flexEnvGetVariable('flexFunctionStartUp.envIsDcFunction')) {
         await new Promise((resolve, reject) => {
-            const cFlexFunctionDcPort = process.env[process.env.thisFunctionName].flexFunctionDcPort || 8080;
+            const cFlexFunctionDcPort = process.env[global.thisFlexFunctionName].flexFunctionDcPort || 8080;
             flexFunction.listen(cFlexFunctionDcPort, (err) => {
                 if (err) {
                     reject(err);
