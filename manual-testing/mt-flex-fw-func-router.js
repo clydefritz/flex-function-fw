@@ -5,7 +5,7 @@ const fw_env = require('../lib/flex-fw-env-utils');
 async function main(){
     await fw_env.flexEnvInitializeVars();
 
-    const flexFunctionRouter = require('../lib/flex-fw-func-router');
+    const flexFunctionRouter = require('../lib/flex-fw-func-router-user');
 
     flexFunction.use(flexFunctionRouter);
 
