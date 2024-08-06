@@ -228,6 +228,16 @@
             bottom: 0;
             width: 100%;
         }
+        /* styles for status colors */
+        .status-paused {
+            color: red;
+            font-weight: bold;
+        }
+
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -309,11 +319,14 @@
         </section>
 
         <section id="recent-activity">
-            <h1>Recent Activity</h1>
+            <h1>Status Information</h1>
             <div class="recent-activity">
                 <ul>
                     <li>Runtime Location: ${thisFlexFunctionLocation}</li>
                     <li>Start-Up Time: ${startupTime}</li>
+                    <li>MQTT Admin Active: ${mqttActive}</li>
+                    <li>MQTT Server: ${mqttServer}</li>
+                    <li>MQTT Topic: ${mqttTopic}</li>
                 </ul>
             </div>
         </section>
@@ -352,7 +365,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // JavaScript functionality can be added here
+            // Change status text color based on status value
+            var statusCells = document.querySelectorAll('td:nth-child(2)'); // Select all second cells in each row
+
+            statusCells.forEach(function(cell) {
+                var statusText = cell.textContent.trim();
+                if (statusText === 'Paused') {
+                    cell.classList.add('status-paused');
+                } else if (statusText === 'Active') {
+                    cell.classList.add('status-active');
+                }
+            });
         });
 
         function shutdownFunction() {
