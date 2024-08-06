@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Function Admin Page</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 10px 20px;
+            color: white;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex: 3;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .nav-menu a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .profile-pic {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 5px 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #34495e;
+            position: fixed;
+            top: 60px; /* Adjust based on header height */
+            bottom: 0;
+            overflow-y: auto;
+            padding-top: 20px;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #2c3e50;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+            margin-top: 70px; /* Adjust based on header height */
+            flex: 1;
+        }
+
+        .overview-cards {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card {
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .charts {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .chart {
+            background-color: #ecf0f1;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .recent-activity {
+            margin-top: 20px;
+        }
+
+        .recent-activity ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .recent-activity li {
+            background-color: #ecf0f1;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        h1 {
+            margin-top: 25;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #1abc9c;
+        }
+
+        .settings-form label, .settings-form input, .settings-form select {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .settings-form input, .settings-form select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar {
+                width: 100%;
+                top: 110px; /* Adjust based on header height */
+                margin-top: 10px;
+                position: relative;
+                padding-top: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                margin-top: 120px; /* Adjust based on header height and sidebar */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">${thisFlexFunctionName}</div>
+        <nav class="nav-menu">
+            <a href="#controls">Controls</a>
+            <a href="#logs">Logs</a>
+            <a href="#settings">Settings</a>
+            <a href="#support">Support</a>
+        </nav>
+        <div class="user-profile">
+            <img src="profile-pic.png" alt="Profile" class="profile-pic">
+            <div class="dropdown">
+                <button class="dropdown-btn">${adminUserName}</button>
+                <div class="dropdown-content">
+                    <a href="#profile">Profile</a>
+                    <a href="#settings">Settings</a>
+                    <a href="#logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <a href="#controls">Controls</a>
+        <a href="#logs">Logs</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#settings">Settings</a>
+        <a href="#support">Support</a>
+    </div>
+    <div class="main-content">
+        <section id="controls">
+            <h1>Controls</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Function Name</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${thisFlexFunctionName}</td>
+                        <td>${thisFlexFunctionStatus}</td>
+                        <td>${thisFlexFunctionStatusTime}</td>
+                        <td>
+                            <button onclick="shutdownFunction()">Shutdown</button>
+                            <button onclick="pauseFunction()">Pause</button>
+                            <button onclick="resumeFunction()">Resume</button>
+                            <button>View Logs</button>
+                        </td>
+                    </tr>
+                    <!-- More rows as needed -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="recent-activity">
+            <h1>Recent Activity</h1>
+            <div class="recent-activity">
+                <ul>
+                    <li>Runtime Location: ${thisFlexFunctionLocation}</li>
+                    <li>Start-Up Time: ${startupTime}</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="logs">
+            <h1>Logs</h1>
+            <div class="log-search">
+                <input type="text" placeholder="Search logs...">
+            </div>
+            <div class="log-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Function</th>
+                            <th>Severity</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-08-01</td>
+                            <td>Function A</td>
+                            <td>Error</td>
+                            <td>Error message details...</td>
+                        </tr>
+                        <!-- More rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div class="footer">
+        &copy; 2024 Flex Function. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a> | <a href="#contact">Contact</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // JavaScript functionality can be added here
+        });
+
+        function shutdownFunction() {
+            fetch('/flex/sigterm', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Function shutdown initiated successfully.');
+                } else {
+                    alert('Failed to initiate shutdown. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during shutdown:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+
+        function pauseFunction() {
+            const confirmPause = confirm('Are you sure you want to pause all incoming requests and allow the flex function to drain in-progress requests?');
+            if (confirmPause) {
+                fetch('/flex/pause', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Function pause initiated successfully.');
+                    } else {
+                        alert('Failed to initiate pause. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during pause:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        }
+
+        function resumeFunction() {
+            const confirmResume = confirm('Are you sure you want to resume allowing all incoming requests so the flex function actively processes all requests?');
+            if (confirmResume) {
+                fetch('/flex/resume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Function resume initiated successfully.');
+                    } else {
+                        alert('Failed to initiate resume. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during resume:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

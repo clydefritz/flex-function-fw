@@ -14,6 +14,27 @@
             "method": "all",
             "path": "/sigint",
             "handler": "sigint"
+        },
+        {
+            "method": "all",
+            "path": "/pause",
+            "handler": "pause"
+        },
+        {
+            "method": "all",
+            "path": "/resume",
+            "handler": "resume"
+        },
+        {
+            "method": "all",
+            "path": "/publish",
+            "handler": "publish",
+            "parser": "json"
+        },
+        {
+            "method": "all",
+            "path": "/tasks",
+            "handler": "tasks"
         }
     ]
 }

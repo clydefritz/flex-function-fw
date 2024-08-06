@@ -1,6 +1,8 @@
 {
     "flexFunctionName": "flexFunctionConfigExample",
     "flexFunctionDcPort": 8082,
+    "flexFunctionMqttSupport": true,
+    "flexFunctionMqttServer": "mqtt://10.140.139.248:1883",
     "flexFunctionRoutes": [
         {
             "method": "get",
