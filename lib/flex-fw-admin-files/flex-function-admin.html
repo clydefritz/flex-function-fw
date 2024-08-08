@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,7 +82,7 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             padding: 12px 16px;
             z-index: 1;
         }
@@ -101,7 +102,8 @@
             width: 200px;
             background-color: #34495e;
             position: fixed;
-            top: 60px; /* Adjust based on header height */
+            top: 60px;
+            /* Adjust based on header height */
             bottom: 0;
             overflow-y: auto;
             padding-top: 20px;
@@ -122,7 +124,8 @@
         .main-content {
             margin-left: 220px;
             padding: 20px;
-            margin-top: 70px; /* Adjust based on header height */
+            margin-top: 70px;
+            /* Adjust based on header height */
             flex: 1;
         }
 
@@ -180,11 +183,14 @@
             border-collapse: collapse;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ddd;
         }
 
-        th, td {
+        th,
+        td {
             padding: 15px;
             text-align: left;
         }
@@ -207,13 +213,16 @@
             background-color: #1abc9c;
         }
 
-        .settings-form label, .settings-form input, .settings-form select {
+        .settings-form label,
+        .settings-form input,
+        .settings-form select {
             display: block;
             width: 100%;
             margin-bottom: 10px;
         }
 
-        .settings-form input, .settings-form select {
+        .settings-form input,
+        .settings-form select {
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -228,6 +237,7 @@
             bottom: 0;
             width: 100%;
         }
+
         /* styles for status colors */
         .status-paused {
             color: red;
@@ -248,7 +258,8 @@
 
             .sidebar {
                 width: 100%;
-                top: 110px; /* Adjust based on header height */
+                top: 110px;
+                /* Adjust based on header height */
                 margin-top: 10px;
                 position: relative;
                 padding-top: 0;
@@ -256,11 +267,75 @@
 
             .main-content {
                 margin-left: 0;
-                margin-top: 120px; /* Adjust based on header height and sidebar */
+                margin-top: 120px;
+                /* Adjust based on header height and sidebar */
             }
+        }
+
+        /* Callout CSS */
+        .callout {
+            display: none;
+            position: absolute;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            z-index: 10;
+        }
+
+        .log-table td:hover .callout {
+            display: block;
+        }
+
+        /* Modal CSS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0px;
+            margin-bottom: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <div class="logo">${thisFlexFunctionName}</div>
@@ -307,10 +382,10 @@
                         <td>${thisFlexFunctionStatus}</td>
                         <td>${thisFlexFunctionStatusTime}</td>
                         <td>
-                            <button onclick="shutdownFunction()">Shutdown</button>
+                            <button id="shutdownButton" onclick="shutdownFunction()">Shutdown</button>
                             <button onclick="pauseFunction()">Pause</button>
                             <button onclick="resumeFunction()">Resume</button>
-                            <button>View Logs</button>
+                            <button onclick="showRecentRequests()">Recent Requests</button>
                         </td>
                     </tr>
                     <!-- More rows as needed -->
@@ -340,35 +415,63 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Function</th>
-                            <th>Severity</th>
-                            <th>Message</th>
+                            <th>Flex Request ID</th>
+                            <th>Request Time</th>
+                            <th>From IP</th>
+                            <th>Protocol</th>
+                            <th>Method</th>
+                            <th>URI</th>
+                            <th>Headers</th>
+                            <th>Responded</th>
+                            <th>Status</th>
+                            <th>Ellapsed</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-08-01</td>
-                            <td>Function A</td>
-                            <td>Error</td>
-                            <td>Error message details...</td>
-                        </tr>
-                        <!-- More rows as needed -->
+                    <tbody id="logTableBody">
+                        <!-- Dynamic rows will be inserted here -->
                     </tbody>
                 </table>
             </div>
         </section>
     </div>
     <div class="footer">
-        &copy; 2024 Flex Function. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a> | <a href="#contact">Contact</a>
+        &copy; 2024 Flex Function. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms
+            of Service</a> | <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Modal 1-->
+    <!--<div id="headersModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <pre id="modalHeadersContent"></pre>
+        </div>
+    </div> -->
+
+    <!-- Modal 2-->
+    <div id="headersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request Headers</h2>
+                <span class="close">&times;</span>
+            </div>
+            <pre id="modalHeadersContent"></pre>
+        </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
+            var flexFunctionLocation = '${thisFlexFunctionLocation}';
+
+            // Hide the shutdown button if the location is GCP
+            if (flexFunctionLocation === 'GCP') {
+                var shutdownButton = document.getElementById('shutdownButton');
+                shutdownButton.style.display = 'none';
+            }
+
             // Change status text color based on status value
             var statusCells = document.querySelectorAll('td:nth-child(2)'); // Select all second cells in each row
 
-            statusCells.forEach(function(cell) {
+            statusCells.forEach(function (cell) {
                 var statusText = cell.textContent.trim();
                 if (statusText === 'Paused') {
                     cell.classList.add('status-paused');
@@ -376,6 +479,22 @@
                     cell.classList.add('status-active');
                 }
             });
+
+            // Get the modal
+            var modal = document.getElementById("headersModal");
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         });
 
         function shutdownFunction() {
@@ -385,17 +504,17 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    alert('Function shutdown initiated successfully.');
-                } else {
-                    alert('Failed to initiate shutdown. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error during shutdown:', error);
-                alert('An error occurred. Please try again.');
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert('Function shutdown initiated successfully.');
+                    } else {
+                        alert('Failed to initiate shutdown. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during shutdown:', error);
+                    alert('An error occurred. Please try again.');
+                });
         }
 
         function pauseFunction() {
@@ -407,17 +526,17 @@
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Function pause initiated successfully.');
-                    } else {
-                        alert('Failed to initiate pause. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error during pause:', error);
-                    alert('An error occurred. Please try again.');
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Function pause initiated successfully.');
+                        } else {
+                            alert('Failed to initiate pause. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error during pause:', error);
+                        alert('An error occurred. Please try again.');
+                    });
             }
         }
 
@@ -430,19 +549,134 @@
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Function resume initiated successfully.');
-                    } else {
-                        alert('Failed to initiate resume. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error during resume:', error);
-                    alert('An error occurred. Please try again.');
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Function resume initiated successfully.');
+                        } else {
+                            alert('Failed to initiate resume. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error during resume:', error);
+                        alert('An error occurred. Please try again.');
+                    });
             }
         }
+
+        function showRecentRequests() {
+            const recentActivityJsonObject = $thisFlexFunctionRecentActivity;
+            const logTableBody = document.getElementById('logTableBody');
+
+            logTableBody.innerHTML = ''; // Clear existing rows
+
+            recentActivityJsonObject.forEach(activity => {
+                const row = document.createElement('tr');
+
+                const idCell = document.createElement('td');
+                idCell.textContent = activity.tid;
+                row.appendChild(idCell);
+
+                const requestTimeCell = document.createElement('td');
+                requestTimeCell.textContent = activity.started;
+                row.appendChild(requestTimeCell);
+
+                const requestedByIp = document.createElement('td');
+                requestedByIp.textContent = activity.ip;
+                row.appendChild(requestedByIp);
+
+                const protocolCell = document.createElement('td');
+                protocolCell.textContent = activity.type;
+                row.appendChild(protocolCell);
+
+                const methodCell = document.createElement('td');
+                methodCell.textContent = activity.verb;
+                row.appendChild(methodCell);
+
+                const uriCell = document.createElement('td');
+                uriCell.textContent = activity.url;
+                row.appendChild(uriCell);
+
+                const headersCell = document.createElement('td');
+                if (activity.hdrs && Object.keys(activity.hdrs).length > 0) {
+                    const headersLink = document.createElement('a');
+                    headersLink.textContent = 'view headers';
+                    headersLink.href = '#';
+                    headersLink.onmouseover = function () {
+                        const callout = document.createElement('div');
+                        callout.className = 'callout';
+                        callout.textContent = JSON.stringify(activity.hdrs, null, 2);
+                        headersLink.appendChild(callout);
+                    };
+                    headersLink.onmouseout = function () {
+                        headersLink.innerHTML = 'view headers';
+                    };
+                    headersLink.onclick = function (event) {
+                        event.preventDefault();
+                        showHeadersModal(activity.hdrs);
+                    };
+                    headersCell.appendChild(headersLink);
+                }
+                row.appendChild(headersCell);
+
+                const finishTimeCell = document.createElement('td');
+                finishTimeCell.textContent = activity.finished;
+                row.appendChild(finishTimeCell);
+
+                //status at finish
+                const finishStatusCell = document.createElement('td');
+                if (!!activity.finished) {
+                    if (activity.error === false) {
+                        finishStatusCell.textContent = '✅';
+                    } else {
+                        finishStatusCell.textContent = '❌';
+                    }
+                } else {
+                    finishStatusCell.textContent = '⌛';
+                }
+                row.appendChild(finishStatusCell);
+
+                //elapsed time cell
+                const elapsedTimeCell = document.createElement('td');
+                let elapsedMillis = '';
+                let elapsedSec = '';
+                let elapsedText = '';
+                if (!!activity.finished) {
+                    elapsedMillis = parseTimestamp(activity.finished) - parseTimestamp(activity.started);
+                    elapsedSec = elapsedMillis / 1000;
+                    elapsedText = elapsedSec + ' Sec';
+                }
+                elapsedTimeCell.textContent = elapsedText;
+                row.appendChild(elapsedTimeCell);
+
+
+
+
+                logTableBody.appendChild(row);
+            });
+
+            alert('Recent Requests Loaded.');
+            console.log(recentActivityJsonObject);
+        }
+
+        function showHeadersModal(headers) {
+            var modal = document.getElementById("headersModal");
+            var modalContent = document.getElementById("modalHeadersContent");
+            modalContent.textContent = JSON.stringify(headers, null, 2);
+            modal.style.display = "block";
+        }
+
+        function parseTimestamp(timestamp) {
+            // Replace space between date and time with 'T' to make it ISO 8601 format
+            const isoFormat = timestamp.replace(' ', 'T');
+            return new Date(isoFormat);
+        }
+
+        // Function to pad a number with leading zeros
+        function padNumber(number, length) {
+            return String(number).padStart(length, '0');
+        }
+
     </script>
 </body>
+
 </html>
