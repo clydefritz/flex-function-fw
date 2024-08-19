@@ -3,7 +3,8 @@
     "flexFunctionDcPort": 8082,
     "flexFunctionMqttSupport": true,
     "flexFunctionMqttServer": "mqtt://10.140.139.248:1883",
-    "flexFunctionIntPortalActive": true,
+    "flexFunctionMqttAllTopic": "flexfunctionsall",
+    "flexFunctionIntPortalActive": false,
     "flexFunctionIntPortalDebug": true,
     "flexFunctionIntPortalRelayUrl": "https://varhdv122:19534/esb/cusa/0/connect/cusa/t_cbeventrelay/v1",
     "flexFunctionIntPortalRelayUname": "esbcpgmuitst",
@@ -21,6 +22,11 @@
             "handler": "about",
             "rateLimitCount": 1,
             "rateLimitSeconds": 30
+        },
+        {
+            "method": "all",
+            "path": "/contact/me/ok",
+            "handler": "contact"
         },
         {
             "method": "all",

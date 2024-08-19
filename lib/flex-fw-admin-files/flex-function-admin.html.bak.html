@@ -342,7 +342,8 @@
         <nav class="nav-menu">
             <a href="#controls">Controls</a>
             <a href="#logs">Logs</a>
-            <a href="#active-flexes">Other Flexes</a>
+            <a href="#settings">Settings</a>
+            <a href="#support">Support</a>
         </nav>
         <div class="user-profile">
             <img src="profile-pic.png" alt="Profile" class="profile-pic">
@@ -360,7 +361,8 @@
         <a href="#controls">Controls</a>
         <a href="#recent-activity">Status</a>
         <a href="#logs">Logs</a>
-        <a href="#active-flexes">Other Flexes</a>
+        <a href="#settings">Settings</a>
+        <a href="#support">Support</a>
     </div>
     <div class="main-content">
         <section id="controls">
@@ -430,27 +432,7 @@
                     </tbody>
                 </table>
             </div>
-        </section>
-
-        <section id="active-flexes">
-            <h1>Active Flexes</h1>
-            <!-- <button onclick="loadFlexes()">Show Flexes</button> -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Flex Name</th>
-                        <th>Flex Location</th>
-                        <th>Flex Host</th>
-                        <th>Flex Start Time</th>
-                        <th>Flex Update Time</th>
-                    </tr>
-                </thead>
-                <tbody id="activeFlexesTableBody">
-                    <!-- Dynamic rows will be inserted here if currentFlexesJsonObject[] exists -->
-                </tbody>
-            </table>
-        </section>
-
+        </section>-
     </div>
     <div class="footer">
         &copy; 2024 Flex Function. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms
@@ -513,8 +495,6 @@
                     modal.style.display = "none";
                 }
             }
-
-            loadFlexes();
         });
 
         function shutdownFunction() {
@@ -695,58 +675,6 @@
         function padNumber(number, length) {
             return String(number).padStart(length, '0');
         }
-
-        function loadFlexes() {
-            const currentFlexesJsonObject = $currentFlexes;
-            // Assuming currentFlexesJsonObject[] is available and populated.
-            if (currentFlexesJsonObject && currentFlexesJsonObject.length > 0) {
-                const activeFlexesTableBody = document.getElementById('activeFlexesTableBody');
-
-                // Clear any existing rows
-                activeFlexesTableBody.innerHTML = '';
-
-                // Iterate over each flex function and create a row for it
-                currentFlexesJsonObject.forEach(flexFunction => {
-                    const row = document.createElement('tr');
-
-                    // Flex Name
-                    const flexNameCell = document.createElement('td');
-                    flexNameCell.textContent = flexFunction.flexiam;
-                    row.appendChild(flexNameCell);
-
-                    // Flex Location
-                    const flexLocationCell = document.createElement('td');
-                    flexLocationCell.textContent = flexFunction.flexlocation;
-                    row.appendChild(flexLocationCell);
-
-                    // Flex Host
-                    const flexHostCell = document.createElement('td');
-                    flexHostCell.textContent = flexFunction.flexhost;
-                    row.appendChild(flexHostCell);
-
-                    // Flex Start Time
-                    const flexStartTimeCell = document.createElement('td');
-                    flexStartTimeCell.textContent = flexFunction.flexstarttimeiso;
-                    row.appendChild(flexStartTimeCell);
-
-                    // Flex Update Time
-                    const flexUpdateTimeCell = document.createElement('td');
-                    flexUpdateTimeCell.textContent = flexFunction.flexsendtime;
-                    row.appendChild(flexUpdateTimeCell);
-
-                    // Append the row to the table body
-                    activeFlexesTableBody.appendChild(row);
-                });
-            } else {
-                const activeFlexesTableBody = document.getElementById('activeFlexesTableBody');
-                const noDataRow = document.createElement('tr');
-                const noDataCell = document.createElement('td');
-                noDataCell.setAttribute('colspan', '5');
-                noDataCell.textContent = 'No active flex functions found.';
-                noDataRow.appendChild(noDataCell);
-                activeFlexesTableBody.appendChild(noDataRow);
-            }
-        };
 
     </script>
 </body>

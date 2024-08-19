@@ -35,6 +35,11 @@
             "method": "all",
             "path": "/tasks",
             "handler": "tasks"
+        },
+        {
+            "method": "all",
+            "path": "/sayhello",
+            "handler": "sayhello"
         }
     ]
 }
