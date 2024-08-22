@@ -213,6 +213,16 @@
             background-color: #1abc9c;
         }
 
+        /* Change hover color for Shutdown button */
+        button#shutdownButton:hover {
+            background-color: rgb(205, 6, 6);
+        }
+
+        /* Change hover color for Pause button */
+        button#pauseButton:hover {
+            background-color: rgb(234, 154, 5);
+        }
+
         .settings-form label,
         .settings-form input,
         .settings-form select {
@@ -381,7 +391,7 @@
                         <td>${thisFlexFunctionStatusTime}</td>
                         <td>
                             <button id="shutdownButton" onclick="shutdownFunction()">Shutdown</button>
-                            <button onclick="pauseFunction()">Pause</button>
+                            <button id="pauseButton" onclick="pauseFunction()">Pause</button>
                             <button onclick="resumeFunction()">Resume</button>
                             <button onclick="showRecentRequests()">Recent Requests</button>
                         </td>
@@ -515,6 +525,7 @@
             }
 
             loadFlexes();
+            showRecentRequests();
         });
 
         function shutdownFunction() {
@@ -674,7 +685,7 @@
                 logTableBody.appendChild(row);
             });
 
-            alert('Recent Requests Loaded.');
+            //alert('Recent Requests Loaded.');
             console.log(recentActivityJsonObject);
         }
 

@@ -1,7 +1,10 @@
 {
     "flexFunctionName": "flexFunctionConfigExample",
     "flexFunctionDcPort": 8082,
+    "flexFunctionBaseLogLevel": 0,
+    "flexFunctionGracefulWaitMillis": 5000,
     "flexFunctionMqttSupport": true,
+    "flexFunctionMqttLogLevel": 0,
     "flexFunctionMqttServer": "mqtt://10.140.139.248:1883",
     "flexFunctionMqttAllTopic": "flexfunctionsall",
     "flexFunctionIntPortalActive": false,

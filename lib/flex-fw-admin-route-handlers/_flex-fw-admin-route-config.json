@@ -40,6 +40,11 @@
             "method": "all",
             "path": "/sayhello",
             "handler": "sayhello"
+        },
+        {
+            "method": "all",
+            "path": "/requesthello",
+            "handler": "requesthello"
         }
     ]
 }
